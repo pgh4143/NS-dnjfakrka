@@ -1,0 +1,13 @@
+node_modules/
+dist/
+output/
+logs/
+screenshots/
+.env
+.env.local
+*.xlsx
+~*.xlsx
+.DS_Store
+*.log
+.omc/state/
+.omc/project-memory.json

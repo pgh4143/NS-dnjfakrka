@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.namsung.michunggu</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/jeongwoo/code/dnjfakrkaalcjdrn/run.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/jeongwoo/code/dnjfakrkaalcjdrn</string>
+
+    <!-- 매월 1일 00:10 실행 -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Day</key>
+        <integer>1</integer>
+        <key>Hour</key>
+        <integer>0</integer>
+        <key>Minute</key>
+        <integer>10</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/jeongwoo/code/dnjfakrkaalcjdrn/logs/launchd-out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/jeongwoo/code/dnjfakrkaalcjdrn/logs/launchd-err.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>HOME</key>
+        <string>/Users/jeongwoo</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>
