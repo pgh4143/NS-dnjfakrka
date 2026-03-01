@@ -6,6 +6,7 @@ import { downloadMenu8203ByBound } from "./menus/menu8203.js";
 import { downloadMenu8211 } from "./menus/menu8211.js";
 import { buildMichungguExcel, type DownloadedFile } from "./excel/builder.js";
 import { sendMonthlyReport } from "./email.js";
+import { isTodayFirstBusinessDay } from "./holiday.js";
 import { mkdir, readdir, rename, stat } from "node:fs/promises";
 import path from "node:path";
 import dayjs from "dayjs";
@@ -158,11 +159,28 @@ async function main(): Promise<void> {
 }
 
 function shouldRun(): boolean {
-  return process.argv.includes("--run") || process.env.RUN_BOT === "true";
+  const args = new Set(process.argv.slice(2));
+
+  // 수동 실행: 항상 즉시 실행
+  if (args.has("--run") || process.env.RUN_BOT === "true") return true;
+
+  // launchd 스케줄 실행: 이번 달 첫 번째 영업일에만 실행
+  if (args.has("--scheduled")) {
+    const isFirst = isTodayFirstBusinessDay();
+    if (!isFirst) {
+      const today = new Date();
+      console.log(`[스케줄] ${today.toLocaleDateString("ko-KR")} → 이번 달 첫 영업일이 아님. 실행 생략.`);
+    }
+    return isFirst;
+  }
+
+  return false;
 }
 
 if (shouldRun()) {
   main();
+} else if (process.argv.includes("--scheduled")) {
+  // 위에서 이미 로그 출력됨
 } else {
   console.log("실행 플래그 없음. 수동 실행: npm run start:run");
 }
