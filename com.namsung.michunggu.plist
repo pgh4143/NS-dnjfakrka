@@ -14,7 +14,7 @@
     <key>WorkingDirectory</key>
     <string>/Users/jeongwoo/code/dnjfakrkaalcjdrn</string>
 
-    <!-- 매월 1~7일 00:10 실행 (공휴일/주말이면 첫 영업일까지 대기) -->
+    <!-- 매월 1~14일 00:10 실행 (1번째·4번째 영업일에만 실제 실행됨) -->
     <key>StartCalendarInterval</key>
     <array>
         <dict><key>Day</key><integer>1</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
@@ -24,6 +24,13 @@
         <dict><key>Day</key><integer>5</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
         <dict><key>Day</key><integer>6</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
         <dict><key>Day</key><integer>7</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Day</key><integer>8</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Day</key><integer>9</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Day</key><integer>10</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Day</key><integer>11</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Day</key><integer>12</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Day</key><integer>13</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Day</key><integer>14</integer><key>Hour</key><integer>0</integer><key>Minute</key><integer>10</integer></dict>
     </array>
 
     <key>StandardOutPath</key>

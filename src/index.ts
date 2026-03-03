@@ -6,7 +6,7 @@ import { downloadMenu8203ByBound } from "./menus/menu8203.js";
 import { downloadMenu8211 } from "./menus/menu8211.js";
 import { buildMichungguExcel, type DownloadedFile } from "./excel/builder.js";
 import { sendMonthlyReport } from "./email.js";
-import { isTodayFirstBusinessDay } from "./holiday.js";
+import { isTodayNthBusinessDay } from "./holiday.js";
 import { mkdir, readdir, rename, stat } from "node:fs/promises";
 import path from "node:path";
 import dayjs from "dayjs";
@@ -164,14 +164,18 @@ function shouldRun(): boolean {
   // 수동 실행: 항상 즉시 실행
   if (args.has("--run") || process.env.RUN_BOT === "true") return true;
 
-  // launchd 스케줄 실행: 이번 달 첫 번째 영업일에만 실행
+  // launchd 스케줄 실행: 이번 달 첫 번째 또는 네 번째 영업일에 실행
   if (args.has("--scheduled")) {
-    const isFirst = isTodayFirstBusinessDay();
-    if (!isFirst) {
+    const isFirst  = isTodayNthBusinessDay(1);
+    const isFourth = isTodayNthBusinessDay(4);
+    if (!isFirst && !isFourth) {
       const today = new Date();
-      console.log(`[스케줄] ${today.toLocaleDateString("ko-KR")} → 이번 달 첫 영업일이 아님. 실행 생략.`);
+      console.log(`[스케줄] ${today.toLocaleDateString("ko-KR")} → 이번 달 1·4번째 영업일이 아님. 실행 생략.`);
+    } else {
+      const which = isFirst ? "첫 번째" : "네 번째";
+      console.log(`[스케줄] 이번 달 ${which} 영업일 → 실행`);
     }
-    return isFirst;
+    return isFirst || isFourth;
   }
 
   return false;

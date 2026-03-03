@@ -131,18 +131,28 @@ export function isBusinessDay(date: Dayjs): boolean {
   return !isWeekend(date) && !isHoliday(date);
 }
 
-/** 해당 월의 첫 번째 영업일 반환 */
-export function firstBusinessDayOfMonth(date: Dayjs): Dayjs {
+/** 해당 월의 N번째 영업일 반환 (없으면 null) */
+export function getNthBusinessDayOfMonth(date: Dayjs, n: number): Dayjs | null {
   let d = date.startOf("month");
-  while (!isBusinessDay(d)) {
+  let count = 0;
+  while (d.month() === date.month()) {
+    if (isBusinessDay(d)) {
+      count++;
+      if (count === n) return d;
+    }
     d = d.add(1, "day");
   }
-  return d;
+  return null;
 }
 
-/** 오늘이 이번 달의 첫 번째 영업일인지 확인 */
-export function isTodayFirstBusinessDay(): boolean {
+/** 오늘이 이번 달의 N번째 영업일인지 확인 */
+export function isTodayNthBusinessDay(n: number): boolean {
   const today = dayjs();
-  const first = firstBusinessDayOfMonth(today);
-  return today.format("YYYY-MM-DD") === first.format("YYYY-MM-DD");
+  const nth = getNthBusinessDayOfMonth(today, n);
+  return nth !== null && today.format("YYYY-MM-DD") === nth.format("YYYY-MM-DD");
+}
+
+/** @deprecated isTodayNthBusinessDay(1) 사용 */
+export function isTodayFirstBusinessDay(): boolean {
+  return isTodayNthBusinessDay(1);
 }
